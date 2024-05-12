@@ -2,7 +2,7 @@ import TileMap from "./TileMap.js";
 import Pacman from "./Pacman.js";
 
 const tileSize = 32;
-const velocity = 1.5;
+const velocity = 2;
 const fps = 75;
 
 const canvas = document.getElementById("gameCanvas");
@@ -27,9 +27,6 @@ function pause() {
     return !pacman.madeFirstMove || gameOver || gameWin;
 }
 
-let update = () => {
-    // todo
-}
 
 tileMap.setCanvasSize(canvas);
 setInterval(gameLoop, 1000 / fps);

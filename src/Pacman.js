@@ -48,8 +48,8 @@ export default class Pacman {
             this.pacmanImages[this.pacmanImageIndex],
             this.x,
             this.y + 2,
-            this.tileSize * 0.8,
-            this.tileSize * 0.8
+            this.tileSize*0.8,
+            this.tileSize*0.8
         );
         ctx.restore();
     }
@@ -113,10 +113,16 @@ export default class Pacman {
             if (Number.isInteger(this.x / this.tileSize) &&
                 Number.isInteger(this.y / this.tileSize)
             ) {
-                this.currentMovingDirection = this.requestedMovingDirection;
+                if (!this.tileMap.didCollideEnv(this.x, this.y, this.requestedMovingDirection)) {
+                    this.currentMovingDirection = this.requestedMovingDirection;
+                }
             }
         }
-        switch(this.currentMovingDirection) {
+        if (this.tileMap.didCollideEnv(this.x, this.y, this.currentMovingDirection)) {
+            return;
+        }
+
+        switch (this.currentMovingDirection) {
             case MovingDirection.up:
                 this.y -= this.velocity;
                 break;

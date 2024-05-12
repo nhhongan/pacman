@@ -57,10 +57,20 @@ export default class TileMap {
 
 
     draw(canvas, ctx) {
-        this.#createRect(ctx, 0, 0, canvas.width, canvas.height, "black");
-        this.#drawWall(ctx);
-        this.#drawDot(ctx, this.tileSize);
-        this.#drawPowerDot(ctx, this.tileSize);
+        for (let row = 0; row < this.map.length; row++) {
+            for (let column = 0; column < this.map[row].length; column++) {
+                let tile = this.map[row][column];
+                if (tile == 1) {
+                    this.#drawWall(ctx, column, row);
+                } else if (tile === 2) {
+                    this.#drawDot(ctx, column, row, this.tileSize);
+                } else if (tile == 3) {
+                    this.#drawPowerDot(ctx, column, row, this.tileSize);
+                } else {
+                    this.#createRect(ctx, column * this.tileSize, row * this.tileSize, this.tileSize, this.tileSize, "black");
+                }
+            }
+        }
     }
 
 
@@ -69,85 +79,67 @@ export default class TileMap {
         ctx.fillRect(x, y, width, height);
     }
 
-    #drawWall(ctx) {
-        for (let row = 0; row < this.map.length; row++) {
-            for (let column = 0; column < this.map[row].length; column++) {
-                let tile = this.map[row][column];
-                if (tile === 1) {
-                    this.#createRect(ctx, column * this.tileSize,
-                        row * this.tileSize,
-                        this.tileSize, this.tileSize,
-                        this.wallColor);
-                    if (column > 0 & this.map[row][column - 1] == 1) {
-                        this.#createRect(ctx,
-                            column * this.tileSize,
-                            row * this.tileSize + this.wallOffset,
-                            this.wallSpaceWidth + this.wallOffset,
-                            this.wallSpaceWidth,
-                            this.wallInnerColor);
-                    }
-                    if (column < this.map[0].length - 1 && this.map[row][column + 1] == 1) {
-                        this.#createRect(ctx,
-                            column * this.tileSize + this.wallOffset,
-                            row * this.tileSize + this.wallOffset,
-                            this.wallSpaceWidth + this.wallOffset,
-                            this.wallSpaceWidth,
-                            this.wallInnerColor);
-                    }
-                    if (row > 0 && this.map[row - 1][column] == 1) {
-                        this.#createRect(ctx,
-                            column * this.tileSize + this.wallOffset,
-                            row * this.tileSize,
-                            this.wallSpaceWidth,
-                            this.wallSpaceWidth + this.wallOffset,
-                            this.wallInnerColor);
-                    }
-                    if (row < this.map.length - 1 && this.map[row + 1][column] == 1) {
-                        this.#createRect(ctx,
-                            column * this.tileSize + this.wallOffset,
-                            row * this.tileSize + this.wallOffset,
-                            this.wallSpaceWidth,
-                            this.wallSpaceWidth + this.wallOffset,
-                            this.wallInnerColor);
-                    }
-                }
-            }
+    #drawWall(ctx, column, row) {
+        this.#createRect(ctx, column * this.tileSize,
+            row * this.tileSize,
+            this.tileSize, this.tileSize,
+            this.wallColor);
+        if (column > 0 && this.map[row][column - 1] == 1) {
+            this.#createRect(ctx,
+                column * this.tileSize,
+                row * this.tileSize + this.wallOffset,
+                this.wallSpaceWidth + this.wallOffset,
+                this.wallSpaceWidth,
+                this.wallInnerColor);
+        }
+        if (column < this.map[0].length - 1 && this.map[row][column + 1] == 1) {
+            this.#createRect(ctx,
+                column * this.tileSize + this.wallOffset,
+                row * this.tileSize + this.wallOffset,
+                this.wallSpaceWidth + this.wallOffset,
+                this.wallSpaceWidth,
+                this.wallInnerColor);
+        }
+        if (row > 0 && this.map[row - 1][column] == 1) {
+            this.#createRect(ctx,
+                column * this.tileSize + this.wallOffset,
+                row * this.tileSize,
+                this.wallSpaceWidth,
+                this.wallSpaceWidth + this.wallOffset,
+                this.wallInnerColor);
+        }
+        if (row < this.map.length - 1 && this.map[row + 1][column] == 1) {
+            this.#createRect(ctx,
+                column * this.tileSize + this.wallOffset,
+                row * this.tileSize + this.wallOffset,
+                this.wallSpaceWidth,
+                this.wallSpaceWidth + this.wallOffset,
+                this.wallInnerColor);
         }
     }
 
-    #drawDot(ctx, size) {
-        for (let i = 0; i < this.map.length; i++) {
-            for (let j = 0; j < this.map[0].length; j++) {
-                if (this.map[i][j] == 2) {
-                    ctx.drawImage(
-                        this.yellowDot,
-                        j * this.tileSize,
-                        i * this.tileSize,
-                        size,
-                        size
-                    );
-                }
-            }
-        }
+    #drawDot(ctx, column, row, size) {
+        ctx.drawImage(
+            this.yellowDot,
+            column * this.tileSize,
+            row * this.tileSize,
+            size,
+            size
+        );
     }
 
-    #drawPowerDot(ctx, size) {
-        for (let i = 0; i < this.map.length; i++) {
-            for (let j = 0; j < this.map[0].length; j++) {
-                if (this.map[i][j] == 3) {
-                    this.powerDotAnmationTimer--;
-                    if (this.powerDotAnmationTimer === 0) {
-                        this.powerDotAnmationTimer = this.powerDotAnmationTimerDefault;
-                        if (this.powerDot == this.pinkDot) {
-                            this.powerDot = this.yellowDot;
-                        } else {
-                            this.powerDot = this.pinkDot;
-                        }
-                    }
-                    ctx.drawImage(this.powerDot, j * size, i * size, size, size);
-                }
+    #drawPowerDot(ctx, column, row, size) {
+        this.powerDotAnmationTimer--;
+        if (this.powerDotAnmationTimer === 0) {
+            this.powerDotAnmationTimer = this.powerDotAnmationTimerDefault;
+            if (this.powerDot == this.pinkDot) {
+                this.powerDot = this.yellowDot;
+            } else {
+                this.powerDot = this.pinkDot;
             }
         }
+        ctx.drawImage(this.powerDot, column * size, row * size, size, size);
+
     }
 
     getPacman(velocity) {
@@ -156,7 +148,13 @@ export default class TileMap {
                 let tile = this.map[row][column];
                 if (tile === 4) {
                     this.map[row][column] = 0;
-                    return new Pacman();
+                    return new Pacman(
+                        column * this.tileSize,
+                        row * this.tileSize,
+                        this.tileSize,
+                        velocity,
+                        this
+                    );
                 }
             }
         }

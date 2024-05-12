@@ -1,8 +1,8 @@
 import TileMap from "./TileMap.js";
 import Pacman from "./Pacman.js";
 
-const tileSize = 20;
-const velocity = 1;
+const tileSize = 32;
+const velocity = 1.5;
 const fps = 75;
 
 const canvas = document.getElementById("gameCanvas");
@@ -14,6 +14,9 @@ const ghostFrames = document.getElementById("ghost")
 const tileMap = new TileMap(tileSize);
 const pacman = tileMap.getPacman(velocity);
 // const enemies = tileMap.getEnemies(velocity);
+
+let gameOver = false;
+let gameWin = false;
 
 function gameLoop() {
     tileMap.draw(canvas, ctx);

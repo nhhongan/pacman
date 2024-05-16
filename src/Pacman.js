@@ -31,11 +31,12 @@ export default class Pacman {
     draw(ctx, pause) {
         this.#move();
         this.#animate();
+        // this.#eatDot();
+
         // if (!pause) {
         //     this.#move();
         //     this.#animate();
         // }
-        // this.#eatDot();
         // this.#eatPowerDot();
         // this.#eatGhost(enemies);
 
@@ -44,11 +45,10 @@ export default class Pacman {
         ctx.save();
         ctx.translate(this.x + size, this.y + size);
         ctx.rotate((this.pacmanRotation * 90 * Math.PI) / 180);
-        ctx.translate(-this.x - size, -this.y - size);
         ctx.drawImage(
             this.pacmanImages[this.pacmanImageIndex],
-            this.x + 2,
-            this.y + 2,
+            -size,
+            -size,
             this.tileSize*0.8,
             this.tileSize*0.8
         );
@@ -130,15 +130,19 @@ export default class Pacman {
         switch (this.currentMovingDirection) {
             case MovingDirection.up:
                 this.y -= this.velocity;
+                this.pacmanRotation = this.Rotation.up;
                 break;
             case MovingDirection.down:
                 this.y += this.velocity;
+                this.pacmanRotation = this.Rotation.down;
                 break;
             case MovingDirection.left:
                 this.x -= this.velocity;
+                this.pacmanRotation = this.Rotation.left;
                 break;
             case MovingDirection.right:
                 this.x += this.velocity;
+                this.pacmanRotation = this.Rotation.right;
                 break;
         }
     }

@@ -8,12 +8,12 @@ const fps = 75;
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext('2d');
 
-const pacmanFrames = document.getElementById("animations")
-const ghostFrames = document.getElementById("ghost")
+// const pacmanFrames = document.getElementById("animations")
+// const ghostFrames = document.getElementById("ghost")
 
 const tileMap = new TileMap(tileSize);
 const pacman = tileMap.getPacman(velocity);
-// const enemies = tileMap.getEnemies(velocity);
+const enemies = tileMap.getEnemies(velocity);
 
 let gameOver = false;
 let gameWin = false;
@@ -21,6 +21,7 @@ let gameWin = false;
 function gameLoop() {
     tileMap.draw(canvas, ctx);
     pacman.draw(ctx, pause());
+    enemies.forEach(enemy => enemy.draw(ctx));
 }
 
 function pause() {

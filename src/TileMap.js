@@ -1,4 +1,5 @@
 import Pacman from './Pacman.js';
+import Enemy from './Enemy.js';
 import MovingDirection from './MovingDirection.js';
 
 export default class TileMap {
@@ -48,11 +49,11 @@ export default class TileMap {
         [1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1],
         [1, 1, 1, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 1, 1, 1, 1],
         [1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
-        [1, 2, 1, 1, 1, 2, 1, 1, 1, 3, 1, 2, 1, 1, 1, 2, 1, 5, 1, 2, 1],
+        [1, 2, 1, 1, 1, 2, 1, 1, 1, 3, 1, 2, 1, 1, 1, 2, 1, 2, 1, 2, 1],
         [1, 2, 2, 2, 1, 5, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1],
         [1, 1, 2, 2, 1, 2, 1, 2, 1, 1, 1, 1, 1, 2, 1, 2, 1, 2, 2, 1, 1],
         [1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1],
-        [1, 2, 1, 1, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 1, 2, 1],
+        [1, 2, 1, 1, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 1, 5, 1],
         [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     ];
@@ -160,6 +161,26 @@ export default class TileMap {
                 }
             }
         }
+    }
+
+    getEnemies(velocity) {
+        const enemies = [];
+        for (let row = 0; row < this.map.length; row++) {
+            for (let column = 0; column < this.map[row].length; column++) {
+                const tile = this.map[row][column];
+                if (tile === 5) {
+                    this.map[row][column] = 2;
+                    enemies.push(new Enemy(
+                        column * this.tileSize,
+                        row * this.tileSize,
+                        this.tileSize,
+                        velocity,
+                        this
+                    ));
+                }
+            }
+        }
+        return enemies;
     }
 
     setCanvasSize(canvas) {

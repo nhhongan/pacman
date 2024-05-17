@@ -31,7 +31,7 @@ export default class Pacman {
     draw(ctx, pause) {
         this.#move();
         this.#animate();
-        // this.#eatDot();
+        this.#eatDot();
 
         // if (!pause) {
         //     this.#move();
@@ -159,6 +159,13 @@ export default class Pacman {
                 this.pacmanImageIndex = 0;
             }
         }
+    }
+
+    #eatDot() {
+        if (this.tileMap.eatDot(this.x, this.y)) {
+            
+        }
+    
     }
 
 } 

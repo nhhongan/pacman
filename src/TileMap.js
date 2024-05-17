@@ -29,6 +29,7 @@ export default class TileMap {
     // 3 - power dot
     // 4 - pacman
     // 5 - ghosts
+    // 6 - empty space
     // 21 columns // 23 rows
     map = [
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -210,6 +211,16 @@ export default class TileMap {
         return false;
     }
 
-
+    eatDot(x, y) {
+        const row = y/this.tileSize;
+        const column = x/this.tileSize;
+        if (Number.isInteger(row) && Number.isInteger(column)) {
+            if (this.map[row][column] == 2) {
+                this.map[row][column] = 6;
+                return true;
+            }
+        }
+        return false;
+    }
 
 }

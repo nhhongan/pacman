@@ -21,11 +21,11 @@ let gameWin = false;
 function gameLoop() {
     tileMap.draw(canvas, ctx);
     pacman.draw(ctx, pause());
-    enemies.forEach(enemy => enemy.draw(ctx));
+    enemies.forEach(enemy => enemy.draw(ctx, pause()));
 }
 
 function pause() {
-    return !pacman.madeFirstMove || gameOver || gameWin;
+    return !pacman.madeFirstMove;
 }
 
 

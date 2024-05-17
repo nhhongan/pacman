@@ -12,13 +12,15 @@ export default class Enemy {
 
         this.movingDirection = Math.floor(Math.random() * Object.keys(MovingDirection).length);
         
-        this.directionTimerDefault = this.#random(10,50);
+        this.directionTimerDefault = this.#random(10,25);
         this.directionTimer = this.directionTimerDefault;
     }
 
-    draw(ctx){
-        this.#move();
-        this.#changeDirection();
+    draw(ctx, pause){
+        if (!pause){
+            this.#move();
+            this.#changeDirection();
+        }
         ctx.drawImage(this.image, this.x, this.y, this.tileSize, this.tileSize);
     }
 

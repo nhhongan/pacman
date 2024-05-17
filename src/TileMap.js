@@ -142,7 +142,6 @@ export default class TileMap {
             }
         }
         ctx.drawImage(this.powerDot, column * size, row * size, size, size);
-
     }
 
     getPacman(velocity) {
@@ -237,6 +236,18 @@ export default class TileMap {
         const column = x/this.tileSize;
         if (Number.isInteger(row) && Number.isInteger(column)) {
             if (this.map[row][column] == 2) {
+                this.map[row][column] = 6;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    eatPowerDot(x, y) {
+        const row = y/this.tileSize;
+        const column = x/this.tileSize;
+        if (Number.isInteger(row) && Number.isInteger(column)) {
+            if (this.map[row][column] == 3) {
                 this.map[row][column] = 6;
                 return true;
             }

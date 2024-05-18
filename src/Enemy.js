@@ -14,13 +14,17 @@ export default class Enemy {
         
         this.directionTimerDefault = this.#random(10,25);
         this.directionTimer = this.directionTimerDefault;
+
+        this.scaredExpireTimerDefault = 10;
+        this.scaredExpireTimer = this.scaredExpireTimerDefault;
     }
 
-    draw(ctx, pause){
+    draw(ctx, pause, pacman){
         if (!pause){
             this.#move();
             this.#changeDirection();
         }
+        this.#setImage(ctx, pacman);
         ctx.drawImage(this.image, this.x, this.y, this.tileSize, this.tileSize);
     }
 
@@ -69,7 +73,33 @@ export default class Enemy {
         this.scaredGhost = new Image();
         this.scaredGhost.src = '../assets/scaredGhost.png';
         this.scaredGhost2 = new Image();
+        this.scaredGhost2.src = '../assets/scaredGhost2.png';
 
         this.image = this.normalGhost;
+    }
+
+    #setImage(ctx, pacman) {
+        if (pacman.powerDotActive) {
+            this.#setImagePowerDotActive(pacman);
+        } else {
+            this.image = this.normalGhost;
+        }
+        ctx.drawImage(this.image, this.x, this.y, this.tileSize, this.tileSize);
+    }
+
+    #setImagePowerDotActive(pacman) {
+        if (pacman.powerDotExpire) {
+            this.scaredExpireTimer--;
+            if (this.scaredExpireTimer == 0) {
+                this.scaredExpireTimer = this.scaredExpireTimerDefault;
+                if (this.image === this.scaredGhost) {
+                    this.image = this.scaredGhost2;
+                } else {
+                    this.image = this.scaredGhost;
+                }
+            }
+        } else {
+            this.image = this.scaredGhost;
+        }
     }
 }

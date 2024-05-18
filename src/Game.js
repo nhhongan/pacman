@@ -21,7 +21,7 @@ let gameWin = false;
 function gameLoop() {
     tileMap.draw(canvas, ctx);
     pacman.draw(ctx, pause());
-    enemies.forEach(enemy => enemy.draw(ctx, pause()));
+    enemies.forEach(enemy => enemy.draw(ctx, pause(), pacman));
 }
 
 function pause() {

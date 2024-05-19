@@ -22,6 +22,16 @@ function gameLoop() {
     pacman.draw(ctx, pause(), enemies);
     enemies.forEach(enemy => enemy.draw(ctx, pause(), pacman));
     checkGameOver();
+    checkGameWin();
+}
+
+function checkGameWin() {
+    if (!gameWin){
+        gameWin = tileMap.didWin();
+        if (gameWin) {
+            gameWinSound.play();
+        }
+    }
 }
 
 function checkGameOver() {
@@ -39,7 +49,7 @@ function isGameOver() {
 }
 
 function pause() {
-    return !pacman.madeFirstMove || gameOver;
+    return !pacman.madeFirstMove || gameOver || gameWin;
 }
 
 

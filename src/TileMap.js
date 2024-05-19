@@ -144,6 +144,14 @@ export default class TileMap {
         ctx.drawImage(this.powerDot, column * size, row * size, size, size);
     }
 
+    #dotsLeft() {
+        return this.map.flat().filter(tile => (tile === 2 || tile === 3)).length;
+    }
+
+    didWin() {
+        return this.#dotsLeft() === 0;
+    }
+
     getPacman(velocity) {
         for (let row = 0; row < this.map.length; row++) {
             for (let column = 0; column < this.map[row].length; column++) {
@@ -254,5 +262,4 @@ export default class TileMap {
         }
         return false;
     }
-
 }

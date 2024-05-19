@@ -16,7 +16,7 @@ export default class Pacman {
 
         this.pacmanRotation = this.Rotation.right;
         this.wakaSound = new Audio('../assets/sounds/waka.wav');
-        
+
         this.powerDotSound = new Audio('../assets/sounds/power_dot.wav');
         this.powerDotActive = false;
         this.powerDotExpire = false;
@@ -37,16 +37,12 @@ export default class Pacman {
     };
 
     draw(ctx, pause) {
-        this.#move();
-        this.#animate();
+        if (!pause) {
+            this.#move();
+            this.#animate();
+        }
         this.#eatDot();
         this.#eatPowerDot();
-
-        // if (!pause) {
-        //     this.#move();
-        //     this.#animate();
-        // }
-        // this.#eatPowerDot();
         // this.#eatGhost(enemies);
 
         const size = this.tileSize / 2;
@@ -58,8 +54,8 @@ export default class Pacman {
             this.pacmanImages[this.pacmanImageIndex],
             -size,
             -size,
-            this.tileSize*0.8,
-            this.tileSize*0.8
+            this.tileSize * 0.8,
+            this.tileSize * 0.8
         );
         ctx.restore();
     }
@@ -181,21 +177,21 @@ export default class Pacman {
     }
 
     #eatPowerDot() {
-        if (this.tileMap.eatPowerDot(this.x, this.y)){
+        if (this.tileMap.eatPowerDot(this.x, this.y)) {
             this.powerDotSound.play();
             this.powerDotActive = true;
             this.powerDotExpire = false;
-            this.timers.forEach((timer)=>clearTimeout(timer));
+            this.timers.forEach((timer) => clearTimeout(timer));
             this.timers = [];
-            let powerDotTimer = setTimeout(()=>{
+            let powerDotTimer = setTimeout(() => {
                 this.powerDotActive = false;
                 this.powerDotExpire = false;
-            },1000*6);
+            }, 1000 * 6);
             this.timers.push(powerDotTimer);
 
-            let powerDotExpireTimer = setTimeout(()=>{
+            let powerDotExpireTimer = setTimeout(() => {
                 this.powerDotExpire = true;
-            }, 1000*3);
+            }, 1000 * 3);
             this.timers.push(powerDotExpireTimer);
         }
     }

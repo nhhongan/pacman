@@ -171,24 +171,39 @@ export default class TileMap {
     }
 
     getEnemies(velocity) {
+        let aStarGhostCreated = false; // Flag to ensure only one AStarGhost is created
         const enemies = [];
         for (let row = 0; row < this.map.length; row++) {
             for (let column = 0; column < this.map[row].length; column++) {
                 const tile = this.map[row][column];
                 if (tile === 5) {
                     this.map[row][column] = 2;
-                    enemies.push(new Enemy(
-                        column * this.tileSize,
-                        row * this.tileSize,
-                        this.tileSize,
-                        velocity,
-                        this
-                    ));
+                    if (!aStarGhostCreated) {
+                        enemies.push(new Enemy(
+                            column * this.tileSize,
+                            row * this.tileSize,
+                            this.tileSize,
+                            velocity,
+                            this,
+                            true // Set isAStarGhost to true for the first enemy
+                        ));
+                        aStarGhostCreated = true; // Set the flag to true after creating AStarGhost
+                    } else {
+                        enemies.push(new Enemy(
+                            column * this.tileSize,
+                            row * this.tileSize,
+                            this.tileSize,
+                            velocity,
+                            this
+                        ));
+                    }
                 }
             }
         }
         return enemies;
     }
+    
+    
 
     setCanvasSize(canvas) {
         canvas.width = this.map[0].length * this.tileSize;

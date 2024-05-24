@@ -178,16 +178,16 @@ export default class TileMap {
                 const tile = this.map[row][column];
                 if (tile === 5) {
                     this.map[row][column] = 2;
-                    if (!aStarGhostCreated) {
+                    if (!aStarGhostCreated && row == 21 && column == 16) {
                         enemies.push(new Enemy(
                             column * this.tileSize,
                             row * this.tileSize,
                             this.tileSize,
                             velocity,
                             this,
-                            true // Set isAStarGhost to true for the first enemy
+                            !aStarGhostCreated // Set isAStarGhost to true for the first enemy
                         ));
-                        aStarGhostCreated = true; // Set the flag to true after creating AStarGhost
+                        aStarGhostCreated = true;
                     } else {
                         enemies.push(new Enemy(
                             column * this.tileSize,

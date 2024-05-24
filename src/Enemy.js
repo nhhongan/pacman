@@ -26,7 +26,11 @@ export default class Enemy {
     draw(ctx, pause, pacman) {
         if (!pause) {
             this.#move();
-            this.FollowPacman(pacman);
+            if (this.isAStarGhost) {
+                this.FollowPacman(pacman);
+            } else {
+                this.#changeDirection();
+            }
         }
         this.#setImage(ctx, pacman);
     }

@@ -122,5 +122,5 @@ const map = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 ];
 
-let path = AStar(map, start, end);
-console.log(path);
+// let path = AStar(map, start, end);
+// console.log(path);

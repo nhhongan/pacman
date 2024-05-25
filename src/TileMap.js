@@ -9,6 +9,9 @@ export default class TileMap {
         this.yellowDot = new Image();
         this.yellowDot.src = "../assets/yellowDot.png";
 
+        this.banana = new Image();
+        this.banana.src = "../assets/banana.jpg";
+
         this.pinkDot = new Image();
         this.pinkDot.src = "../assets/pinkDot.png";
 
@@ -26,7 +29,7 @@ export default class TileMap {
     }
 
     // 1 - wall
-    // 2 - dots
+    // 2 - dots/banana
     // 3 - power dot
     // 4 - pacman
     // 5 - ghosts
@@ -66,7 +69,8 @@ export default class TileMap {
                 if (tile == 1) {
                     this.#drawWall(ctx, column, row);
                 } else if (tile === 2) {
-                    this.#drawDot(ctx, column, row, this.tileSize);
+                    // this.#drawDot(ctx, column, row, this.tileSize);
+                    this.#drawBanana(ctx, column, row, this.tileSize);
                 } else if (tile == 3) {
                     this.#drawPowerDot(ctx, column, row, this.tileSize);
                 } else {
@@ -124,6 +128,16 @@ export default class TileMap {
     #drawDot(ctx, column, row, size) {
         ctx.drawImage(
             this.yellowDot,
+            column * this.tileSize,
+            row * this.tileSize,
+            size,
+            size
+        );
+    }
+
+    #drawBanana(ctx, column, row, size) {
+        ctx.drawImage(
+            this.banana,
             column * this.tileSize,
             row * this.tileSize,
             size,

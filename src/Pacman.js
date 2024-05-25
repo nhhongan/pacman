@@ -15,7 +15,7 @@ export default class Pacman {
         this.requestedMovingDirection = null;
 
         this.pacmanRotation = this.Rotation.right;
-        this.wakaSound = new Audio('../assets/sounds/waka.wav');
+        this.wakaSound = new Audio('../assets/sounds/collectingsound.ogg');
 
         this.powerDotSound = new Audio('../assets/sounds/power_dot.wav');
         this.powerDotActive = false;
@@ -56,31 +56,20 @@ export default class Pacman {
             this.pacmanImages[this.pacmanImageIndex],
             -size,
             -size,
-            this.tileSize * 0.8,
-            this.tileSize * 0.8
+            this.tileSize * 1.3,
+            this.tileSize * 1.3
         );
         ctx.restore();
     }
 
     #loadPacmanImages() {
-        const pacmanImage1 = new Image();
-        pacmanImage1.src = "../assets/pac0.png";
+        this.pacmanImages = [];
 
-        const pacmanImage2 = new Image();
-        pacmanImage2.src = "../assets/pac1.png";
-
-        const pacmanImage3 = new Image();
-        pacmanImage3.src = "../assets/pac2.png";
-
-        const pacmanImage4 = new Image();
-        pacmanImage4.src = "../assets/pac1.png";
-
-        this.pacmanImages = [
-            pacmanImage1,
-            pacmanImage2,
-            pacmanImage3,
-            pacmanImage4,
-        ];
+        for (let i = 1; i <= 20; i++) {
+            const img = new Image();
+            img.src = `../assets/minion/minion${i}.png`;
+            this.pacmanImages.push(img);
+        }
 
         this.pacmanImageIndex = 0;
     }

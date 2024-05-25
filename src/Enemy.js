@@ -9,8 +9,6 @@ export default class Enemy {
         this.velocity = velocity;
         this.tileMap = tileMap;
         this.isAStarGhost = isAStarGhost;
-        // this.astar = new AStar(tileMap); // Initialize AStar instance
-        // this.path = []; // Path to store the result of AStar pathfinding
 
         this.#loadImages();
 
@@ -48,12 +46,12 @@ export default class Enemy {
     }
 
     FollowPacman(pacman) {
-        const pacX = pacman.x; // Pacman's x position
-        const pacY = pacman.y; // Pacman's y position
-        const start = [Math.floor(this.x / this.tileSize), Math.floor(this.y / this.tileSize)]; // Enemy's current position
-        const end = [Math.floor(pacX / this.tileSize), Math.floor(pacY / this.tileSize)]; // Pacman's position
+        const pacX = pacman.x; 
+        const pacY = pacman.y;
+        const start = [Math.floor(this.x / this.tileSize), Math.floor(this.y / this.tileSize)];
+        const end = [Math.floor(pacX / this.tileSize), Math.floor(pacY / this.tileSize)];
 
-        const path = AStar(this.tileMap.map, start, end); // Calculate the shortest path using A* algorithm
+        const path = AStar(this.tileMap.map, start, end);
 
         if (path.length > 1) {
             // If a path is found and it has at least one step

@@ -51,7 +51,11 @@ export default class Pacman {
 
         ctx.save();
         ctx.translate(this.x + size, this.y + size);
-        ctx.rotate((this.pacmanRotation * 90 * Math.PI) / 180);
+        if (this.pacmanRotation === this.Rotation.left) {
+            ctx.scale(-1, 1);
+        } else {
+            ctx.rotate((this.pacmanRotation * 90 * Math.PI) / 180);
+        }
         ctx.drawImage(
             this.pacmanImages[this.pacmanImageIndex],
             -size,

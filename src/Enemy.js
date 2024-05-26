@@ -8,6 +8,7 @@ export default class Enemy {
         this.tileSize = tileSize;
         this.velocity = velocity;
         this.tileMap = tileMap;
+        this.enemyRotation = this.Rotation.right;
         this.isAStarGhost = isAStarGhost;
 
         this.#loadImages();
@@ -20,6 +21,13 @@ export default class Enemy {
         this.scaredExpireTimerDefault = 10;
         this.scaredExpireTimer = this.scaredExpireTimerDefault;
     }
+
+    Rotation = {
+        right: 0,
+        down: 1,
+        left: 2,
+        up: 3,
+    };
 
     draw(ctx, pause, pacman) {
         if (!pause) {
@@ -46,7 +54,7 @@ export default class Enemy {
     }
 
     FollowPacman(pacman) {
-        const pacX = pacman.x; 
+        const pacX = pacman.x;
         const pacY = pacman.y;
         const start = [Math.floor(this.x / this.tileSize), Math.floor(this.y / this.tileSize)];
         const end = [Math.floor(pacX / this.tileSize), Math.floor(pacY / this.tileSize)];
@@ -108,15 +116,19 @@ export default class Enemy {
             switch (this.movingDirection) {
                 case MovingDirection.up:
                     this.y -= this.velocity;
+                    this.enemyRotation = this.Rotation.up;
                     break;
                 case MovingDirection.down:
                     this.y += this.velocity;
+                    this.enemyRotation = this.Rotation.down;
                     break;
                 case MovingDirection.left:
                     this.x -= this.velocity;
+                    this.enemyRotation = this.Rotation.left;
                     break;
                 case MovingDirection.right:
                     this.x += this.velocity;
+                    this.enemyRotation = this.Rotation.right;
                     break;
             }
         }
@@ -128,7 +140,7 @@ export default class Enemy {
 
     #loadImages() {
         this.normalGhost = new Image();
-        this.normalGhost.src = '../assets/ghost.png';
+        this.normalGhost.src = '../assets/purpleMinion.png';
         this.scaredGhost = new Image();
         this.scaredGhost.src = '../assets/scaredGhost.png';
         this.scaredGhost2 = new Image();
@@ -143,7 +155,16 @@ export default class Enemy {
         } else {
             this.image = this.normalGhost;
         }
-        ctx.drawImage(this.image, this.x, this.y, this.tileSize, this.tileSize);
+        ctx.save();
+        const size = this.tileSize / 2;
+        ctx.translate(this.x + size, this.y + size);
+        if (this.enemyRotation === this.Rotation.left) {
+            ctx.scale(-1, 1);
+        } else {
+            ctx.rotate((this.enemyRotation * 90 * Math.PI) / 180);
+        }
+        ctx.drawImage(this.image, -size, -size, this.tileSize * 1.2, this.tileSize * 1.2);
+        ctx.restore();
     }
 
     #setImagePowerDotActive(pacman) {

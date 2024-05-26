@@ -5,37 +5,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pacman</title>
-    <style>
-        #gameCanvas {
-            /* box-shadow: 10px 10px 20px black; */
-            background-color: black;
-        }
-        h1 {
-            text-align: center;
-            font-family: comic sans MS;
-            color: lightgray;
-        }
-        body {
-            display: flex;
-            justify-content: center;
-            overflow: hidden;
-            height: 100vh;
-            /* background: linear-gradient(
-                0deg,
-                rgb(247, 247, 249) 30%,
-                rgb(136,34,195) 100%
-
-            ); */
-        }
-    </style>
+    <link rel="stylesheet" href="styles/styles.css">
 </head>
 
 <body>
-    <div>
+    <div id="landingPage" class="landing-page">
+        <h1>Minion Rush</h1>
+        <p>Choose your level and start playing!</p>
+        <div class="level-selection">
+            <button class="level-button" id="easy">Easy</button>
+            <button class="level-button" id="medium">Medium</button>
+            <button class="level-button" id="hard">Hard</button>
+        </div>
+        <button class="play-button" id="play">Play</button>
+    </div>
+
+    <div id="gamePage" class="game-page" style="display:none;">
         <h1>Pac-Man</h1>
         <canvas id="gameCanvas"></canvas>
+        <div id="gameEndContainer" class="game-end-container" style="display:none;">
+            <button id="newGameButton">New Game</button>
+            <button id="exitButton">Exit</button>
+        </div>
     </div>
+
     <script src="src/Game.js" type="module"></script>
+    <script src="src/Main.js"></script>
 </body>
 
 </html>

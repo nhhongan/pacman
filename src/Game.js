@@ -1,6 +1,5 @@
 import TileMap from "./TileMap.js";
 import Pacman from "./Pacman.js";
-// import drawConnectionLine from "./ConnectionLine.js";
 
 const tileSize = 32;
 const velocity = 2;
@@ -22,10 +21,7 @@ function gameLoop() {
     tileMap.draw(canvas, ctx);
     drawGameEnd();
     pacman.draw(ctx, pause(), enemies);
-    enemies.forEach(enemy =>  {
-        // if (enemy.isAStarGhost) {
-        //     drawConnectionLine(ctx, pacman, enemy, tileMap); // Draw connection line for A* enemy
-        // } 
+    enemies.forEach(enemy => {
         enemy.draw(ctx, pause(), pacman);
     });
     checkGameOver();
@@ -33,10 +29,11 @@ function gameLoop() {
 }
 
 function checkGameWin() {
-    if (!gameWin){
+    if (!gameWin) {
         gameWin = tileMap.didWin();
         if (gameWin) {
             gameWinSound.play();
+            showGameEndButtons();
         }
     }
 }
@@ -46,6 +43,7 @@ function checkGameOver() {
         gameOver = isGameOver();
         if (gameOver) {
             gameOverSound.play();
+            showGameEndButtons();
         }
     }
 }
@@ -66,26 +64,20 @@ function drawGameEnd() {
             text = "Game Over";
         }
         ctx.fillStyle = "black";
-        ctx.fillRect(0, canvas.height/2.5, canvas.width, 150);
+        ctx.fillRect(0, canvas.height / 2.5, canvas.width, 150);
         ctx.font = '80px comic sans';
-        const gradient = ctx.createLinearGradient(0,0,canvas.width, canvas.height, 0);
-        gradient.addColorStop('0','magenta');
-        gradient.addColorStop('0.5','blue');
-        gradient.addColorStop('1.0','red');
+        const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height, 0);
+        gradient.addColorStop('0', 'magenta');
+        gradient.addColorStop('0.5', 'blue');
+        gradient.addColorStop('1.0', 'red');
         ctx.fillStyle = gradient;
-        ctx.fillText(text, 150, canvas.height/1.9);
+        ctx.fillText(text, 150, canvas.height / 1.9);
     }
 }
 
-// function drawConnectionLine(ctx, pacman, enemy) {
-//     ctx.beginPath();
-//     ctx.strokeStyle = 'pink';
-//     ctx.lineWidth = 3;
-//     ctx.moveTo(pacman.x + pacman.tileSize / 2, pacman.y + pacman.tileSize / 2);
-//     ctx.lineTo(enemy.x + enemy.tileSize / 2, enemy.y + enemy.tileSize / 2);
-//     ctx.stroke();
-// }
-
+function showGameEndButtons() {
+    document.getElementById('gameEndContainer').style.display = 'block';
+}
 
 tileMap.setCanvasSize(canvas);
 setInterval(gameLoop, 1000 / fps);

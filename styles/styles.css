@@ -1,0 +1,72 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    height: 100vh;
+    background-color: #282c34;
+    color: lightgray;
+    font-family: 'Comic Sans MS', sans-serif;
+}
+
+.landing-page,
+.game-page {
+    text-align: center;
+}
+
+#gameCanvas {
+    background-color: black;
+}
+
+.level-selection {
+    margin: 20px 0;
+}
+
+.level-button {
+    background-color: #61dafb;
+    border: none;
+    padding: 15px 30px;
+    margin: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.level-button:hover {
+    background-color: #21a1f1;
+}
+
+.level-button.selected {
+    background-color: #1b8bce;
+}
+
+.play-button {
+    background-color: #21a1f1;
+    border: none;
+    padding: 20px 40px;
+    font-size: 24px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.play-button:hover {
+    background-color: #1b8bce;
+}
+
+.game-end-container {
+    margin-top: 20px;
+}
+
+.game-end-container button {
+    background-color: #21a1f1;
+    border: none;
+    padding: 15px 30px;
+    margin: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.game-end-container button:hover {
+    background-color: #1b8bce;
+}

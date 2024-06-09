@@ -163,7 +163,7 @@ export default class Enemy {
         } else {
             ctx.rotate((this.enemyRotation * 90 * Math.PI) / 180);
         }
-        ctx.drawImage(this.image, -size, -size, this.tileSize * 1.2, this.tileSize * 1.2);
+        ctx.drawImage(this.image, -size-5, -size-2, this.tileSize * 1.2, this.tileSize * 1.2);
         ctx.restore();
     }
 

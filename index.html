@@ -4,33 +4,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pacman</title>
+    <title>Minion-Pacman</title>
     <link rel="stylesheet" href="styles/styles.css">
+    <script defer src="src/Landing.js"></script>
+    <script defer src="src/Game.js" type="module"></script>
+    <script defer src="src/Navigator.js"></script>
 </head>
 
 <body>
-    <div id="landingPage" class="landing-page">
-        <h1>Minion Rush</h1>
-        <p>Choose your level and start playing!</p>
-        <div class="level-selection">
-            <button class="level-button" id="easy">Easy</button>
-            <button class="level-button" id="medium">Medium</button>
-            <button class="level-button" id="hard">Hard</button>
+    <!-- Landing Page -->
+    <div id="landingPage" class="play-cont">
+        <p>MINION RUSH</p>
+        <div class="game__option">
+            <h1>SELECT LEVEL</h1>
         </div>
-        <button class="play-button" id="play">Play</button>
+        <div id="levelSelection">
+            <label class="game__level">Easy
+                <input class="game__level--easy" type="radio" name="level" value="easy" checked>
+                <span class="game__level--checked"></span>
+            </label>
+            <label class="game__level">Hard
+                <input class="game__level--hard" type="radio" name="level" value="hard">
+                <span class="game__level--checked"></span>
+            </label>
+        </div>
+        <button class="game__start" id="playButton">PLAY</button>
     </div>
 
+    <!-- Game Page -->
     <div id="gamePage" class="game-page" style="display:none;">
-        <h1>Pac-Man</h1>
         <canvas id="gameCanvas"></canvas>
         <div id="gameEndContainer" class="game-end-container" style="display:none;">
             <button id="newGameButton">New Game</button>
             <button id="exitButton">Exit</button>
         </div>
     </div>
-
-    <script src="src/Game.js" type="module"></script>
-    <script src="src/Main.js"></script>
 </body>
 
 </html>

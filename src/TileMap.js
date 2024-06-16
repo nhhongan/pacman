@@ -3,8 +3,9 @@ import Enemy from './Enemy.js';
 import MovingDirection from './MovingDirection.js';
 
 export default class TileMap {
-    constructor(tileSize) {
+    constructor(tileSize, map) {
         this.tileSize = tileSize;
+        this.map = map;
 
         this.yellowDot = new Image();
         this.yellowDot.src = "../assets/yellowDot.png";
@@ -15,8 +16,6 @@ export default class TileMap {
         this.pinkDot = new Image();
         this.pinkDot.src = "../assets/pinkDot.png";
 
-        // this.wall = new Image();
-        // this.wall.src = "../images/wall.png";
         this.wallColor = "#342DCA";
         this.wallSpaceWidth = this.tileSize / 1.5;
         this.wallOffset = (this.tileSize - this.wallSpaceWidth) / 2;
@@ -35,31 +34,31 @@ export default class TileMap {
     // 5 - ghosts
     // 6 - empty space
     // 21 columns // 23 rows
-    map = [
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 2, 2, 2, 4, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
-        [1, 2, 1, 1, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 1, 1, 2, 1],
-        [1, 2, 1, 1, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 1, 1, 2, 1],
-        [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
-        [1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1],
-        [1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1, 3, 2, 2, 1, 2, 2, 2, 2, 2, 1],
-        [1, 1, 1, 2, 2, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 2, 1, 2, 2, 1],
-        [1, 2, 2, 2, 1, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1, 2, 1, 1, 2, 2, 1],
-        [1, 2, 2, 3, 2, 2, 1, 2, 1, 1, 2, 1, 1, 2, 1, 2, 2, 1, 3, 1, 1],
-        [1, 1, 1, 1, 2, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1],
-        [1, 2, 2, 2, 2, 2, 1, 2, 1, 2, 2, 2, 1, 2, 1, 2, 2, 2, 1, 1, 1],
-        [1, 2, 2, 1, 1, 2, 1, 2, 1, 5, 1, 1, 1, 2, 1, 2, 2, 1, 1, 2, 1],
-        [1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1],
-        [1, 1, 1, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 1, 1, 1, 1],
-        [1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
-        [1, 2, 1, 1, 1, 2, 1, 1, 1, 3, 1, 2, 1, 1, 1, 2, 1, 2, 1, 2, 1],
-        [1, 2, 2, 2, 1, 5, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1],
-        [1, 1, 2, 2, 1, 2, 1, 2, 1, 1, 1, 1, 1, 2, 1, 2, 1, 2, 2, 1, 1],
-        [1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1],
-        [1, 2, 1, 1, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 1, 2, 1],
-        [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 2, 2, 2, 2, 2, 5, 2, 2, 2, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    ];
+    // map = [
+    //     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    //     [1, 2, 2, 2, 4, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
+    //     [1, 2, 1, 1, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 1, 1, 2, 1],
+    //     [1, 2, 1, 1, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 1, 1, 2, 1],
+    //     [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
+    //     [1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1],
+    //     [1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1, 3, 2, 2, 1, 2, 2, 2, 2, 2, 1],
+    //     [1, 1, 1, 2, 2, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 2, 1, 2, 2, 1],
+    //     [1, 2, 2, 2, 1, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1, 2, 1, 1, 2, 2, 1],
+    //     [1, 2, 2, 3, 2, 2, 1, 2, 1, 1, 2, 1, 1, 2, 1, 2, 2, 1, 3, 1, 1],
+    //     [1, 1, 1, 1, 2, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1],
+    //     [1, 2, 2, 2, 2, 2, 1, 2, 1, 2, 2, 2, 1, 2, 1, 2, 2, 2, 1, 1, 1],
+    //     [1, 2, 2, 1, 1, 2, 1, 2, 1, 5, 1, 1, 1, 2, 1, 2, 2, 1, 1, 2, 1],
+    //     [1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1],
+    //     [1, 1, 1, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 1, 1, 1, 1],
+    //     [1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
+    //     [1, 2, 1, 1, 1, 2, 1, 1, 1, 3, 1, 2, 1, 1, 1, 2, 1, 2, 1, 2, 1],
+    //     [1, 2, 2, 2, 1, 5, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1],
+    //     [1, 1, 2, 2, 1, 2, 1, 2, 1, 1, 1, 1, 1, 2, 1, 2, 1, 2, 2, 1, 1],
+    //     [1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1],
+    //     [1, 2, 1, 1, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 1, 2, 1],
+    //     [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 2, 2, 2, 2, 2, 5, 2, 2, 2, 1],
+    //     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    // ];
 
 
     draw(canvas, ctx) {
@@ -68,7 +67,7 @@ export default class TileMap {
                 let tile = this.map[row][column];
                 if (tile == 1) {
                     this.#drawWall(ctx, column, row);
-                } else if (tile === 2) {
+                } else if (tile == 2) {
                     // this.#drawDot(ctx, column, row, this.tileSize);
                     this.#drawBanana(ctx, column, row, this.tileSize);
                 } else if (tile == 3) {
@@ -125,15 +124,15 @@ export default class TileMap {
         }
     }
 
-    #drawDot(ctx, column, row, size) {
-        ctx.drawImage(
-            this.yellowDot,
-            column * this.tileSize,
-            row * this.tileSize,
-            size,
-            size
-        );
-    }
+    // #drawDot(ctx, column, row, size) {
+    //     ctx.drawImage(
+    //         this.yellowDot,
+    //         column * this.tileSize,
+    //         row * this.tileSize,
+    //         size,
+    //         size
+    //     );
+    // }
 
     #drawBanana(ctx, column, row, size) {
         ctx.drawImage(
@@ -147,7 +146,7 @@ export default class TileMap {
 
     #drawPowerDot(ctx, column, row, size) {
         this.powerDotAnmationTimer--;
-        if (this.powerDotAnmationTimer === 0) {
+        if (this.powerDotAnmationTimer == 0) {
             this.powerDotAnmationTimer = this.powerDotAnmationTimerDefault;
             if (this.powerDot == this.pinkDot) {
                 this.powerDot = this.yellowDot;
@@ -159,18 +158,18 @@ export default class TileMap {
     }
 
     #dotsLeft() {
-        return this.map.flat().filter(tile => (tile === 2 || tile === 3)).length;
+        return this.map.flat().filter(tile => (tile == 2 || tile == 3)).length;
     }
 
     didWin() {
-        return this.#dotsLeft() === 0;
+        return this.#dotsLeft() == 0;
     }
 
     getPacman(velocity) {
         for (let row = 0; row < this.map.length; row++) {
             for (let column = 0; column < this.map[row].length; column++) {
                 let tile = this.map[row][column];
-                if (tile === 4) {
+                if (tile == 4) {
                     this.map[row][column] = 2;
                     return new Pacman(
                         column * this.tileSize,
@@ -184,24 +183,24 @@ export default class TileMap {
         }
     }
 
-    getEnemies(velocity) {
-        let aStarGhostCreated = false; // Flag to ensure only one AStarGhost is created
+    getEnemies(velocity, level) {
+        let aStarGhostsToCreate = level == 'hard' ? 2 : 1;
         const enemies = [];
         for (let row = 0; row < this.map.length; row++) {
             for (let column = 0; column < this.map[row].length; column++) {
-                const tile = this.map[row][column];
-                if (tile === 5) {
+                let tile = this.map[row][column];
+                if (tile == 5) {
                     this.map[row][column] = 2;
-                    if (!aStarGhostCreated && row == 21 && column == 16) {
+                    if (aStarGhostsToCreate > 0 && ((row === 21 && column === 16) || (row === 12 && column === 9))) {
                         enemies.push(new Enemy(
                             column * this.tileSize,
                             row * this.tileSize,
                             this.tileSize,
                             velocity,
                             this,
-                            !aStarGhostCreated // Set isAStarGhost to true for the first enemy
+                            true // Set isAStarGhost to true for AStar enemies
                         ));
-                        aStarGhostCreated = true;
+                        aStarGhostsToCreate--;
                     } else {
                         enemies.push(new Enemy(
                             column * this.tileSize,
@@ -216,6 +215,40 @@ export default class TileMap {
         }
         return enemies;
     }
+    
+
+    // getEnemies(velocity) {
+    //     let aStarGhostCreated = false; // Flag to ensure only one AStarGhost is created
+    //     const enemies = [];
+    //     for (let row = 0; row < this.map.length; row++) {
+    //         for (let column = 0; column < this.map[row].length; column++) {
+    //             let tile = this.map[row][column];
+    //             if (tile == 5) {
+    //                 this.map[row][column] = 2;
+    //                 if (!aStarGhostCreated && row == 21 && column == 16) {
+    //                     enemies.push(new Enemy(
+    //                         column * this.tileSize,
+    //                         row * this.tileSize,
+    //                         this.tileSize,
+    //                         velocity,
+    //                         this,
+    //                         !aStarGhostCreated // Set isAStarGhost to true for the first enemy
+    //                     ));
+    //                     aStarGhostCreated = true;
+    //                 } else {
+    //                     enemies.push(new Enemy(
+    //                         column * this.tileSize,
+    //                         row * this.tileSize,
+    //                         this.tileSize,
+    //                         velocity,
+    //                         this
+    //                     ));
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     return enemies;
+    // }
     
     
 
@@ -260,8 +293,8 @@ export default class TileMap {
                     column = x / this.tileSize;
                     break;
             }
-            const tile = this.map[row][column];
-            if (tile === 1) {
+            let tile = this.map[row][column];
+            if (tile == 1) {
                 return true;
             }
         }

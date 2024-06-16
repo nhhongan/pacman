@@ -1,12 +1,18 @@
-document.addEventListener('DOMContentLoaded', () => {
-    let selectedLevel = null;
+import { startGame } from './Game.js';
 
-    document.querySelectorAll('.game__level').forEach(button => {
-        button.addEventListener('click', () => {
-            document.querySelectorAll('.game__level').forEach(btn => btn.classList.remove('selected'));
-            button.classList.add('selected');
-            selectedLevel = button.id;
+document.addEventListener('DOMContentLoaded', () => {
+    let selectedLevel = "easy";
+
+    document.querySelectorAll('.game__level input').forEach(button => {
+        button.addEventListener('change', () => {
+            selectedLevel = button.value;
+            console.log(`Selected level: ${selectedLevel}`);
         });
+    });
+
+    document.getElementById('playButton').addEventListener('click', () => {
+        console.log(`Play button clicked with selected level: ${selectedLevel}`);
+        startGame(selectedLevel);
     });
 
     document.getElementById('newGameButton').addEventListener('click', () => {
@@ -18,21 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-function startGame(level) {
-    document.getElementById('landingPage').style.display = 'none';
-
-    document.getElementById('gamePage').style.display = 'block';
-    
-    console.log(`Starting game with level: ${level}`);
-    // Example:
-    // new Game(level).start();
-}
-
 function restartGame() {
     // Hide the game page
     document.getElementById('gamePage').style.display = 'none';
-    // Show the landing page
-    // document.getElementById('landingPage').style.display = 'block';
     // Hide game end buttons
     document.getElementById('gameEndContainer').style.display = 'none';
     // Reload the page to reset the game

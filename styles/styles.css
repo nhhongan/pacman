@@ -322,8 +322,20 @@ p {
     font-size: 20px;
     cursor: pointer;
     transition: background-color 0.3s;
+    /* position: relative; */
+    display: inline-block;
+}
+
+.game-end-container button::before {
+    content: '';
+    height: 110%;
+    width: 105%;
+    position: relative;
+    border-radius: calc(var(--font) * 0.8);
+    background-color: transparent;
 }
 
 .game-end-container button:hover {
+    position: relative;
     background-color: #1b8bce;
 }

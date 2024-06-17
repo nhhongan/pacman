@@ -29,6 +29,10 @@ export default class Pacman {
         document.addEventListener("keydown", this.#keydown);
 
         this.#loadPacmanImages();
+
+        this.score = 0;
+        this.dotEaten = false;
+        this.powerDotEaten = false;
     }
 
     Rotation = {
@@ -168,6 +172,9 @@ export default class Pacman {
     #eatDot() {
         if (this.tileMap.eatDot(this.x, this.y) && this.madeFirstMove) {
             this.wakaSound.play();
+            this.score += 10;
+            console.log('Pacman ate a dot!');
+            this.dotEaten = true;
         }
     }
 
@@ -188,6 +195,9 @@ export default class Pacman {
                 this.powerDotExpire = true;
             }, 1000 * 3);
             this.timers.push(powerDotExpireTimer);
+            this.score += 20;
+            console.log('Pacman ate a power dot!');
+            this.powerDotEaten = true;
         }
     }
 
@@ -199,6 +209,19 @@ export default class Pacman {
                 this.eatGhostSound.play();
             });
         }
+    }
+
+    getScore() {
+        return this.score;
+    }
+
+    resetScore() {
+        this.score = 0;
+    }
+
+    reset() {
+        this.dotEaten = false;
+        this.powerDotEaten = false;
     }
 
 } 

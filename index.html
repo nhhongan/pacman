@@ -6,8 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minion-Pacman</title>
     <link rel="stylesheet" href="styles/styles.css">
-    <script defer type="module" src="src/Game.js" type="module"></script>
-    <script defer type="module" src="src/Navigator.js"></script>
+    <!-- <script defer type="module" src="src/Game.js" type="module"></script>
+    <script defer type="module" src="src/Navigator.js"></script> -->
+    <script defer type="module" src="src/Main.js"></script>
 </head>
 
 <body>
@@ -32,6 +33,10 @@
 
     <!-- Game Page -->
     <div id="gamePage" class="game-page" style="display:none;">
+        <div class="score-container">
+            <!-- <span class="score-label">Score:</span> -->
+            <span class="score" id="scoreBoard">0</span>
+        </div>
         <canvas id="gameCanvas"></canvas>
         <div id="gameEndContainer" class="game-end-container" style="display:none;">
             <button id="newGameButton">New Game</button>

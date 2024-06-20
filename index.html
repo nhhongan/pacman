@@ -4,42 +4,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pacman</title>
-    <style>
-        #gameCanvas {
-            /* box-shadow: 10px 10px 20px black; */
-            background-color: black;
-        }
-        h1 {
-            text-align: center;
-            font-family: comic sans MS;
-            color: lightgray;
-        }
-        body {
-            display: flex;
-            justify-content: center;
-            overflow: hidden;
-            height: 100vh;
-            /* background: linear-gradient(
-                0deg,
-                rgb(247, 247, 249) 30%,
-                rgb(136,34,195) 100%
-
-            ); */
-        }
-    </style>
+    <title>Minion-Pacman</title>
+    <link rel="stylesheet" href="styles/styles.css">
+    <!-- <script defer type="module" src="src/Game.js" type="module"></script>
+    <script defer type="module" src="src/Navigator.js"></script> -->
+    <script defer type="module" src="src/Main.js"></script>
 </head>
 
 <body>
-    <div>
-        <h1>Pac-Man</h1>
-        <canvas id="gameCanvas" width="500" height="500"></canvas>
+    <!-- Landing Page -->
+    <div id="landingPage" class="play-cont">
+        <p>MINION RUSH</p>
+        <div class="game__option">
+            <h1>SELECT LEVEL</h1>
+        </div>
+        <div id="levelSelection">
+            <label class="game__level">Easy
+                <input class="game__level--easy" type="radio" name="level" value="easy" checked>
+                <span class="game__level--checked"></span>
+            </label>
+            <label class="game__level">Hard
+                <input class="game__level--hard" type="radio" name="level" value="hard">
+                <span class="game__level--checked"></span>
+            </label>
+        </div>
+        <button class="game__start" id="playButton">PLAY</button>
     </div>
-    <div style="display: none;">
-        <!-- <img id="animation" src="assets/animations.gif" alt=""> -->
-        <img id="ghosts" src="assets/ghost.png" alt="">
+
+    <!-- Game Page -->
+    <div id="gamePage" class="game-page" style="display:none;">
+        <div class="score-container">
+            <!-- <span class="score-label">Score:</span> -->
+            <span class="score" id="scoreBoard">0</span>
+        </div>
+        <canvas id="gameCanvas"></canvas>
+        <div id="gameEndContainer" class="game-end-container" style="display:none;">
+            <button id="newGameButton">New Game</button>
+            <button id="exitButton">Exit</button>
+        </div>
     </div>
-    <script src="src/Game.js" type="module"></script>
 </body>
 
 </html>

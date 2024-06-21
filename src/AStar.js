@@ -1,3 +1,11 @@
+/* Name: Nguyen Hoang Hong An
+   Student code: ITDSIU22151
+   Purpose: This module implements the A* pathfinding algorithm. It is used to calculate the shortest path
+            between points on the game board, enabling enemy characters to intelligently navigate the maze
+            and pursue the Pacman character. The A* algorithm balances optimality and performance, making it
+            well-suited for real-time applications such as this game.
+*/
+
 
 class Node {
     constructor(x, y) {

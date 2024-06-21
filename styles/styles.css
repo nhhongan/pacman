@@ -9,7 +9,6 @@ body {
     height: 100vh;
     background: url('../assets/landingImage.jpg') no-repeat center center fixed;
     background-size: cover;
-    /* background-color: rgba(0, 0, 0, 0.3); */
     background-blend-mode: color;
     font-family: 'Open Sans', sans-serif;
     margin: 0;
@@ -44,7 +43,6 @@ h2 {
     align-items: center;
     font-size: 21px;
     padding: 15px;
-    /* width: 100px; */
     border-radius: 10px;
 }
 

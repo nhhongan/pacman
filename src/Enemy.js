@@ -1,3 +1,13 @@
+/* Name: Nguyen Hoang Hong An
+   Student code: ITDSIU22151
+   Purpose: This module defines the Enemy class, which manages the behavior and state of enemy characters in the game.
+            It includes methods for movement, handling collisions with Pacman, and updating their position on the game
+            board. The Enemy class interacts with the TileMap for navigation and collision detection, and it contributes
+            to the game's challenge by pursuing the Pacman character.
+*/
+
+
+
 import MovingDirection from "./MovingDirection.js";
 import AStar from './AStar.js';
 

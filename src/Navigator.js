@@ -1,3 +1,12 @@
+/* Name: Nguyen Hoang Hong An
+   Student code: ITDSIU22151
+   Purpose: This module handles the navigation between different pages and states of the Minion Rush game.
+            It manages the display and hiding of the landing page, game page, and game end container, 
+            ensuring a smooth user experience as players progress through the game.
+*/
+
+
+
 import { startGame } from './Game.js';
 
 const Navigator = {

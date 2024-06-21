@@ -1,3 +1,13 @@
+/* Name: Nguyen Hoang Hong An
+   Student code: ITDSIU22151
+   Purpose: This module defines the ScoreSubject class, which implements the Observer design pattern.
+            It maintains the game score and notifies all registered observers (such as ScoreBoard) 
+            whenever the score is updated. This allows for a decoupled design where the score management 
+            is separated from the display logic.
+*/
+
+
+
 class ScoreSubject {
     constructor() {
         this.score = 0;

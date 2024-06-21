@@ -1,3 +1,14 @@
+/* Name: Nguyen Hoang Hong An
+   Student code: ITDSIU22151
+   Purpose: This module defines the TileMap class, which represents the game map for the Minion Rush game.
+            It handles the rendering of the map, placement of Minion and enemies, collision detection,
+            and dot/power dot consumption by Minion. TileMap initializes based on different game levels
+            and provides methods to interact with game elements, facilitating gameplay mechanics and
+            visual representation.
+*/
+
+
+
 import Pacman from './Pacman.js';
 import Enemy from './Enemy.js';
 import MovingDirection from './MovingDirection.js';
@@ -22,44 +33,10 @@ export default class TileMap {
         this.wallInnerColor = "black";
 
         this.powerDot = this.pinkDot;
-        this.powerDotAnmationTimerDefault = 30;
-        this.powerDotAnmationTimer = this.powerDotAnmationTimerDefault;
+        this.powerDotAnimationTimerDefault = 30;
+        this.powerDotAnimationTimer = this.powerDotAnimationTimerDefault;
 
     }
-
-    // 1 - wall
-    // 2 - dots/banana
-    // 3 - power dot
-    // 4 - pacman
-    // 5 - ghosts
-    // 6 - empty space
-    // 21 columns // 23 rows
-    // map = [
-    //     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    //     [1, 2, 2, 2, 4, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
-    //     [1, 2, 1, 1, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 1, 1, 2, 1],
-    //     [1, 2, 1, 1, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 1, 1, 2, 1],
-    //     [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
-    //     [1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1],
-    //     [1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1, 3, 2, 2, 1, 2, 2, 2, 2, 2, 1],
-    //     [1, 1, 1, 2, 2, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 2, 1, 2, 2, 1],
-    //     [1, 2, 2, 2, 1, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1, 2, 1, 1, 2, 2, 1],
-    //     [1, 2, 2, 3, 2, 2, 1, 2, 1, 1, 2, 1, 1, 2, 1, 2, 2, 1, 3, 1, 1],
-    //     [1, 1, 1, 1, 2, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1],
-    //     [1, 2, 2, 2, 2, 2, 1, 2, 1, 2, 2, 2, 1, 2, 1, 2, 2, 2, 1, 1, 1],
-    //     [1, 2, 2, 1, 1, 2, 1, 2, 1, 5, 1, 1, 1, 2, 1, 2, 2, 1, 1, 2, 1],
-    //     [1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1],
-    //     [1, 1, 1, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 1, 1, 1, 1],
-    //     [1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
-    //     [1, 2, 1, 1, 1, 2, 1, 1, 1, 3, 1, 2, 1, 1, 1, 2, 1, 2, 1, 2, 1],
-    //     [1, 2, 2, 2, 1, 5, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1],
-    //     [1, 1, 2, 2, 1, 2, 1, 2, 1, 1, 1, 1, 1, 2, 1, 2, 1, 2, 2, 1, 1],
-    //     [1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1],
-    //     [1, 2, 1, 1, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 1, 2, 1],
-    //     [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 2, 2, 2, 2, 2, 5, 2, 2, 2, 1],
-    //     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    // ];
-
 
     draw(canvas, ctx) {
         for (let row = 0; row < this.map.length; row++) {
@@ -68,7 +45,6 @@ export default class TileMap {
                 if (tile == 1) {
                     this.#drawWall(ctx, column, row);
                 } else if (tile == 2) {
-                    // this.#drawDot(ctx, column, row, this.tileSize);
                     this.#drawBanana(ctx, column, row, this.tileSize);
                 } else if (tile == 3) {
                     this.#drawPowerDot(ctx, column, row, this.tileSize);
@@ -124,16 +100,6 @@ export default class TileMap {
         }
     }
 
-    // #drawDot(ctx, column, row, size) {
-    //     ctx.drawImage(
-    //         this.yellowDot,
-    //         column * this.tileSize,
-    //         row * this.tileSize,
-    //         size,
-    //         size
-    //     );
-    // }
-
     #drawBanana(ctx, column, row, size) {
         ctx.drawImage(
             this.banana,
@@ -145,9 +111,9 @@ export default class TileMap {
     }
 
     #drawPowerDot(ctx, column, row, size) {
-        this.powerDotAnmationTimer--;
-        if (this.powerDotAnmationTimer == 0) {
-            this.powerDotAnmationTimer = this.powerDotAnmationTimerDefault;
+        this.powerDotAnimationTimer--;
+        if (this.powerDotAnimationTimer == 0) {
+            this.powerDotAnimationTimer = this.powerDotAnimationTimerDefault;
             if (this.powerDot == this.pinkDot) {
                 this.powerDot = this.yellowDot;
             } else {
@@ -215,41 +181,6 @@ export default class TileMap {
         }
         return enemies;
     }
-    
-
-    // getEnemies(velocity) {
-    //     let aStarGhostCreated = false; // Flag to ensure only one AStarGhost is created
-    //     const enemies = [];
-    //     for (let row = 0; row < this.map.length; row++) {
-    //         for (let column = 0; column < this.map[row].length; column++) {
-    //             let tile = this.map[row][column];
-    //             if (tile == 5) {
-    //                 this.map[row][column] = 2;
-    //                 if (!aStarGhostCreated && row == 21 && column == 16) {
-    //                     enemies.push(new Enemy(
-    //                         column * this.tileSize,
-    //                         row * this.tileSize,
-    //                         this.tileSize,
-    //                         velocity,
-    //                         this,
-    //                         !aStarGhostCreated // Set isAStarGhost to true for the first enemy
-    //                     ));
-    //                     aStarGhostCreated = true;
-    //                 } else {
-    //                     enemies.push(new Enemy(
-    //                         column * this.tileSize,
-    //                         row * this.tileSize,
-    //                         this.tileSize,
-    //                         velocity,
-    //                         this
-    //                     ));
-    //                 }
-    //             }
-    //         }
-    //     }
-    //     return enemies;
-    // }
-    
     
 
     setCanvasSize(canvas) {

@@ -1,3 +1,12 @@
+/* Name: Nguyen Hoang Hong An
+    Student code: ITDSIU22151
+   Purpose: This module defines the Pacman class, which manages the behavior and state of the Pacman character in the game. 
+            It includes methods for movement, eating dots and power dots, handling power dot effects, playing sounds, and 
+            updating the score. The Pacman class interacts with the TileMap to check for collisions and updates, and it 
+            notifies the ScoreSubject when the score should be incremented.
+*/
+
+
 import MovingDirection from "./MovingDirection.js";
 
 export default class Pacman {
@@ -173,7 +182,6 @@ export default class Pacman {
         if (this.tileMap.eatDot(this.x, this.y) && this.madeFirstMove) {
             this.wakaSound.play();
             this.score += 10;
-            console.log('Pacman ate a dot!');
             this.dotEaten = true;
         }
     }
@@ -196,7 +204,6 @@ export default class Pacman {
             }, 1000 * 3);
             this.timers.push(powerDotExpireTimer);
             this.score += 20;
-            console.log('Pacman ate a power dot!');
             this.powerDotEaten = true;
         }
     }
